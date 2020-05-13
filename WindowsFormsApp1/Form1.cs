@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Net;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Exam2020_AA
+namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
@@ -19,6 +16,5 @@ namespace Exam2020_AA
         {
             InitializeComponent();
         }
-
     }
 }
