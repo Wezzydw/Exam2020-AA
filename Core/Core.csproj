@@ -5,4 +5,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="ApplicationServices\Services\" />
+    <Folder Include="DomainServices\" />
+    <Folder Include="Helpers\" />
+  </ItemGroup>
+
 </Project>
