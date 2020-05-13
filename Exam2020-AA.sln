@@ -14,6 +14,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Entity", "Core.Entity\Core.Entity.csproj", "{17629447-392E-44E8-916D-1EE81AC3D8AC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{8F0178C0-FCF7-4CBB-899A-694B392E7BE1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertificateListener", "CertificateListener\CertificateListener.csproj", "{57C6CE1D-AAA1-497F-83EA-745C9576B450}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +42,10 @@ Global
 		{8F0178C0-FCF7-4CBB-899A-694B392E7BE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F0178C0-FCF7-4CBB-899A-694B392E7BE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F0178C0-FCF7-4CBB-899A-694B392E7BE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57C6CE1D-AAA1-497F-83EA-745C9576B450}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57C6CE1D-AAA1-497F-83EA-745C9576B450}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57C6CE1D-AAA1-497F-83EA-745C9576B450}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57C6CE1D-AAA1-497F-83EA-745C9576B450}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
