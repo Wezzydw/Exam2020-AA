@@ -38,6 +38,10 @@ namespace NewsListener
                     {
                         webPage = webPage[0..^15];
                     }
+                    if (Program.newsTitlePlusLink.ContainsKey(link))
+                    {
+                        continue;
+                    }
                     Program.newsTitlePlusLink.Add(link, webPage);
                 }
             }
