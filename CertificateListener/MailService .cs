@@ -158,7 +158,7 @@ namespace CertificateListener
             mail.To.Add(user.mEmail);
             mail.Subject = "Your Certificates are about to expire";
             mail.Body = $"Dear {user.mName}  " +
-                        $"\nThese Certificates will expire within 3 months: \n";
+                        $"\nThese Certificates will expire {certificate.mExpirationDate}: \n";
             
                 mail.Body += certificate.mName +
                              "\n";
