@@ -36,14 +36,41 @@ namespace CertificateListener
                     if ("mName" == pair.Key) cert1.mName = (String)pair.Value;
                     if ("mPhoto" == pair.Key) cert1.mPhoto = (String)pair.Value;
                     if ("mExpirationDate" == pair.Key) cert1.mExpirationDate = (String)pair.Value;
-                     Console.WriteLine(pair.Key);
-
+                    if ("mUserUid" == pair.Key) cert1.mUserUid = (String)pair.Value;
                 }
                  _certificates.Add(cert1);
             }
             return _certificates;
         }
 
+        public async Task<User> getUserEmail(Certificate certificate)
+        {
+            
+            DocumentReference docRef = db.Collection("users").Document(certificate.mUserUid);
+            DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+            User user = new User();
+            if (snapshot.Exists)
+            {
+                Console.WriteLine("Document data for {0} document:", snapshot.Id);
+                Dictionary<string, object> users = snapshot.ToDictionary();
+                foreach (KeyValuePair<string, object> pair in users)
+                {
+                    if ("mEmail" == pair.Key)
+                    {
+                        user.mEmail = (String)pair.Value;
+                        return user;
+                    }
 
+                }
+            }
+            else
+            {
+                Console.WriteLine("Document {0} does not exist!", snapshot.Id);
+            }
+
+            return null;
+        }
+        
+            //dd/mm/yyyy
     }
 }
