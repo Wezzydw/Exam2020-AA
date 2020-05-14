@@ -18,5 +18,10 @@ namespace Core.ApplicationServices.Services
         {
             return _newsRepository.GetNews();
         }
+
+        public void SaveNews(List<News> news)
+        {
+            _newsRepository.SaveNews(news);
+        }
     }
 }

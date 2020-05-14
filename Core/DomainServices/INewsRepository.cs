@@ -7,7 +7,7 @@ namespace Core.DomainServices
 {
     public interface INewsRepository
     {
-
         List<News> GetNews();
+        void SaveNews(List<News> news);
     }
 }

@@ -10,9 +10,13 @@ namespace Infrastructure.Repositories
     public class NewsRepository : INewsRepository
     {
         public List<News> GetNews()
-        
         {
-            return AsyncClient.StartClient();
+            List<News> news = new List<News>();
+            return AsyncClient.StartClient(true, news);
+        }
+        public void SaveNews(List<News> news)
+        {
+            AsyncClient.StartClient(false, news);
         }
     }
 }

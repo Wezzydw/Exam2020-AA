@@ -8,5 +8,6 @@ namespace Core.ApplicationServices
     public interface INewsService
     {
         List<News> GetNews();
+        void SaveNews(List<News> news);
     }
 }

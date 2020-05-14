@@ -5,6 +5,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Core.Helpers
 {
@@ -23,7 +25,7 @@ namespace Core.Helpers
         // The response from the remote device.  
         private static String response = String.Empty;
 
-        public static List<News> StartClient()
+        public static List<News> StartClient(Boolean getAll, List<News> newslist)
         {
             List<News> news = new List<News>();
             // Connect to a remote device.  
@@ -44,9 +46,19 @@ namespace Core.Helpers
                 client.BeginConnect(remoteEP,
                     new AsyncCallback(ConnectCallback), client);
                 connectDone.WaitOne();
-
+                string jsonString = "";
+                if (getAll)
+                {
+                    jsonString = "[Get-All]";
+                }
+                else
+                {
+                    jsonString = "[Insert-]";
+                    jsonString += JsonSerializer.Serialize<List<News>>(newslist);
+                }
                 // Send test data to the remote device.  
-                Send(client, "This is a test<EOF>");
+                Send(client, jsonString + "<EOF>");
+                
                 sendDone.WaitOne();
 
                 // Receive the response from the remote device.  

@@ -21,7 +21,12 @@ namespace TheRESTAPI.Controllers
 
         public ActionResult<List<News>> Get()
         {
-            return _newsService.GetNews();
+            List<News> news = new List<News>();
+            News a = new News() { NewsText = "News a" };
+            News b = new News() { NewsText = "News b" };
+            News c = new News() { NewsText = "News c" };
+            _newsService.SaveNews(news);
+            return news;
         }
     }
 }

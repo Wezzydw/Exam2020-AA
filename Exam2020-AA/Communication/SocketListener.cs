@@ -1,4 +1,6 @@
-﻿using System;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
@@ -83,8 +85,27 @@ namespace Exam2020_AA.Communication
                     // client. Display it on the console.  
                     Console.WriteLine("Read {0} bytes from socket. \n Data : {1}",
                         content.Length, content);
+
+                    string newsjsonstring = "";
+                    List<News> newslist = new List<News>();
+
+                    if (content.Contains("[Get-All]"))
+                    {
+                        newsjsonstring = JsonSerializer.Serialize(CommunicationRepository.GetAllNews());
+
+                        Send(handler, newsjsonstring);
+                    }
+                    else if(content.Contains("[Insert-]"))
+                    {
+                        newsjsonstring = content.Substring(9, content.Length - 5);
+                        newslist = JsonSerializer.Deserialize<List<News>>(newsjsonstring);
+                        //Instert into database;
+                        CommunicationRepository.CreateNews(newslist);
+                        Send(handler, "Data should have been created in database");
+                    }
+
                     // Echo the data back to the client.  
-                    Send(handler, content);
+                    //Send(handler, content);
                 }
                 else
                 {
