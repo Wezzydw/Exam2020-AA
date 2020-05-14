@@ -8,5 +8,6 @@ namespace CertificateListener
     {
         public string mEmail { get; set; }
         public string mUId { get; set; }
+        public string mName { get; set; }
     }
 }
