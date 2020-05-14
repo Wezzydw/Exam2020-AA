@@ -5,8 +5,9 @@ namespace CertificateListener
     class Program
     {
         static void Main(string[] args)
-        {
-            Console.WriteLine("Hello World!");
+        {   
+            FirebaseConnector fbConnector = new FirebaseConnector();
+            Console.WriteLine(fbConnector.ReadCertificates().Result.Count);
         }
     }
 }
