@@ -7,13 +7,16 @@ namespace CertificateListener
     {
         static void Main(string[] args)
         {   
-            Certificate certificate = new Certificate();
-            certificate.mUserUid = "SluEwNNVe6gjGmZD1Z3STvLelOa2";
-            FirebaseConnector fbConnector = new FirebaseConnector();
-            certificate = fbConnector.ReadCertificates().Result.Find(x => x.mUserUid.Contains("SluEwNNVe6gjGmZD1Z3STvLelOa2"));
-            Console.WriteLine(certificate.mExpirationDate);
-            Console.WriteLine(fbConnector.getUserEmail(certificate).Result.mEmail);
-            
+            MailService ms = new MailService();
+            /* Certificate certificate = new Certificate();
+             certificate.mUserUid = "SluEwNNVe6gjGmZD1Z3STvLelOa2";
+             FirebaseConnector fbConnector = new FirebaseConnector();
+             certificate = fbConnector.ReadCertificates().Result.Find(x => x.mExpirationDate.Contains("May 29, 2020"));
+             Console.WriteLine(certificate.mExpirationDate);
+             DateTime expirationDate = DateTime.Parse(certificate.mExpirationDate);
+             Console.WriteLine(expirationDate.ToString());
+             Console.WriteLine(fbConnector.getUserEmail(certificate).Result.mEmail);*/
+            ms.HandleUsersAndCertificates();
         }
     }
 }

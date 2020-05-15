@@ -28,9 +28,9 @@ namespace CertificateListener
             {
                 lines = System.IO.File.ReadAllLines(@"../../../../../email.emsettings");
             }
-            else if (System.IO.File.Exists(@"../../email.emsettings"))
+            else if (System.IO.File.Exists(@"../../../../email.emsettings"))
             {
-                lines = System.IO.File.ReadAllLines(@"../../email.emsettings");
+                lines = System.IO.File.ReadAllLines(@"../../../../email.emsettings");
             }
             else
             {
@@ -86,8 +86,9 @@ namespace CertificateListener
         /// <returns>String</returns>
         public bool CheckStatusOfCertificates(Certificate certificate)
         {
+            if(certificate.mUserUid == "CLStrmu9kpa7TKaHXCILVsjoNxm2") { 
             DateTime expirationDate = DateTime.Parse(certificate.mExpirationDate);
-
+            
             if (certificate == null)
             {
                 throw new NullReferenceException();
@@ -98,11 +99,11 @@ namespace CertificateListener
             {
                 return isLessThan90 = true;
             }
-            else if (expirationDate.ToOADate() - now.ToOADate() == 30)
+            else if (expirationDate.ToOADate() - now.ToOADate() <= 30)
             {
                return isLessThan30 = true;
             }
-
+            }
             return false;
 
         }

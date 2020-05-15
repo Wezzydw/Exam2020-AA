@@ -58,10 +58,13 @@ namespace CertificateListener
                     if ("mEmail" == pair.Key)
                     {
                         user.mEmail = (string)pair.Value;
-                        return user;
                     }
-
+                    if ("mName" == pair.Key)
+                    {
+                        user.mName = (string)pair.Value;
+                    }
                 }
+                return user;
             }
             else
             {
