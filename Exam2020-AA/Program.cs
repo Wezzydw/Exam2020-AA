@@ -1,3 +1,4 @@
+using Exam2020_AA.Communication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,13 @@ namespace Exam2020_AA
         [STAThread]
         static void Main()
         {
+            using (NewsContext db = new NewsContext())
+            {
+                db.Database.EnsureCreated();
+            }
+                Task taska = Task.Run(() => SocketListener.StartListening());
+            Console.WriteLine();
+            //SocketListener.StartListening();
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
