@@ -56,7 +56,6 @@ namespace Core.Helpers
                     jsonString = "[Insert-]";
                     jsonString += JsonSerializer.Serialize(newslist);
                 }
-
                 // Send test data to the remote device.  
                 Send(client, jsonString + "<EOF>");
                 
