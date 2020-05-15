@@ -15,7 +15,8 @@ namespace NewsListener
 
             Task task = new Task(() =>
             {
-                ExtraBladetListener crawler = new ExtraBladetListener();
+                DrListener crawler = new DrListener();
+                //ExtraBladetListener crawler = new ExtraBladetListener();
                 crawler.crawl();
             });
 

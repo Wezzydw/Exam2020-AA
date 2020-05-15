@@ -17,32 +17,41 @@ namespace NewsListener
                     UriBuilder ub = new UriBuilder(urlStr);
                     WebClient wc = new WebClient();
 
-                    string webPage = wc.DownloadString(ub.Uri.ToString());
-                    //Console.WriteLine(link);
-                    //Console.WriteLine(webPage);
-                    /* if (!webPage.Contains("<title>"))
+                    try
                     {
-                        Console.WriteLine("link = " + link);
-                        continue;
-                    }*/
+                        string webPage = wc.DownloadString(ub.Uri.ToString());
+                        //Console.WriteLine(link);
+                        //Console.WriteLine(webPage);
+                        /* if (!webPage.Contains("<title>"))
+                        {
+                            Console.WriteLine("link = " + link);
+                            continue;
+                        }*/
 
-                    webPage = webPage.Split("<title")[1];
-                    webPage = webPage.Split("</title>")[0];
-                    webPage = webPage.Split(">")[1];
-                    //Console.WriteLine("webpage title = " + webPage);
-                    if (webPage.Contains("|"))
-                    {
-                        webPage = webPage.Split("|")[0];
+                        webPage = webPage.Split("<title")[1];
+                        webPage = webPage.Split("</title>")[0];
+                        webPage = webPage.Split(">")[1];
+                        //Console.WriteLine("webpage title = " + webPage);
+                        if (webPage.Contains("|"))
+                        {
+                            webPage = webPage.Split("|")[0];
+                        }
+                        if (webPage.Contains("Ekstra Bladet"))
+                        {
+                            webPage = webPage[0..^15];
+                        }
+                        if (Program.newsTitlePlusLink.ContainsKey(link))
+                        {
+                            continue;
+                        }
+                        Program.newsTitlePlusLink.Add(link, webPage);
                     }
-                    if (webPage.Contains("Ekstra Bladet"))
+                    catch (Exception)
                     {
-                        webPage = webPage[0..^15];
-                    }
-                    if (Program.newsTitlePlusLink.ContainsKey(link))
-                    {
+
                         continue;
                     }
-                    Program.newsTitlePlusLink.Add(link, webPage);
+                    
                 }
             }
         }
