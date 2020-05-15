@@ -25,8 +25,12 @@ namespace TheRESTAPI.Controllers
             News a = new News() { NewsText = "News a" };
             News b = new News() { NewsText = "News b" };
             News c = new News() { NewsText = "News c" };
-            _newsService.SaveNews(news);
-            return news;
+            news.Add(a);
+            news.Add(b);
+            news.Add(c);
+            //_newsService.SaveNews(news);
+            //return news;
+            return _newsService.GetNews();
         }
     }
 }

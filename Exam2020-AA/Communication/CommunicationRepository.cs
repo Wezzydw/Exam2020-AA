@@ -20,7 +20,7 @@ namespace Exam2020_AA.Communication
         {
             using (NewsContext db = new NewsContext())
             {
-                return db.news.ToList();
+                return db.News.ToList();
             }
         }
     }

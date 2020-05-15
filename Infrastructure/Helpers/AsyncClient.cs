@@ -54,8 +54,9 @@ namespace Core.Helpers
                 else
                 {
                     jsonString = "[Insert-]";
-                    jsonString += JsonSerializer.Serialize<List<News>>(newslist);
+                    jsonString += JsonSerializer.Serialize(newslist);
                 }
+
                 // Send test data to the remote device.  
                 Send(client, jsonString + "<EOF>");
                 
@@ -67,8 +68,10 @@ namespace Core.Helpers
 
                 // Write the response to the console.  
                 Console.WriteLine("Response received : {0}", response);
-                news.Add(new News() { NewsText = response.ToString() });
-
+                //string newsjsonstring = "";
+                //newsjsonstring = response.Substring(0, response.Length - (5));
+                newslist = JsonSerializer.Deserialize<List<News>>(response);
+                news = newslist;
                 // Release the socket.  
                 client.Shutdown(SocketShutdown.Both);
                 client.Close();

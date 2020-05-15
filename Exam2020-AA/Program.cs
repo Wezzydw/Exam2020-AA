@@ -15,7 +15,11 @@ namespace Exam2020_AA
         [STAThread]
         static void Main()
         {
-            Task taska = Task.Run(() => SocketListener.StartListening());
+            using (NewsContext db = new NewsContext())
+            {
+                db.Database.EnsureCreated();
+            }
+                Task taska = Task.Run(() => SocketListener.StartListening());
             Console.WriteLine();
             //SocketListener.StartListening();
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
