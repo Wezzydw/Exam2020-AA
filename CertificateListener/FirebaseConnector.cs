@@ -33,12 +33,12 @@ namespace CertificateListener
                 Dictionary<string, object> cert = docSnap.ToDictionary();
                 foreach (KeyValuePair<string, object> pair in cert)
                 {
-                    if ("mName" == pair.Key) cert1.mName = (String)pair.Value;
-                    if ("mPhoto" == pair.Key) cert1.mPhoto = (String)pair.Value;
-                    if ("mExpirationDate" == pair.Key) cert1.mExpirationDate = (String)pair.Value;
-                    if ("mUserUid" == pair.Key) cert1.mUserUid = (String)pair.Value;
+                    if ("mName" == pair.Key) cert1.mName = (string)pair.Value;
+                    if ("mPhoto" == pair.Key) cert1.mPhoto = (string)pair.Value;
+                    if ("mExpirationDate" == pair.Key) cert1.mExpirationDate = (string)pair.Value;
+                    if ("mUserUid" == pair.Key) cert1.mUserUid = (string)pair.Value;
                 }
-                 _certificates.Add(cert1);
+                _certificates.Add(cert1);
             }
             return _certificates;
         }
@@ -57,7 +57,7 @@ namespace CertificateListener
                 {
                     if ("mEmail" == pair.Key)
                     {
-                        user.mEmail = (String)pair.Value;
+                        user.mEmail = (string)pair.Value;
                         return user;
                     }
 
