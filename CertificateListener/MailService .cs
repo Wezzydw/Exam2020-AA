@@ -18,7 +18,7 @@ namespace CertificateListener
        
         public MailService()
         {
-            
+            // Finding path to em-settings
             string[] lines = null;
             if (System.IO.File.Exists(@"../../../../../../../../../../email.emsettings"))
             {
