@@ -6,7 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FireSharp" Version="2.0.4" />
+    <None Remove="certificate-project.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="certificate-project.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Cloud.Firestore" Version="2.0.0" />
   </ItemGroup>
 
 </Project>
