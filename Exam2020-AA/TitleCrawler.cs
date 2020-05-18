@@ -3,14 +3,20 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using System.Threading;
 
 namespace NewsListener
 {
     public class TitleCrawler
     {
-        public void GetTitles()
+        private CrawlManager manager;
+        public TitleCrawler(CrawlManager manager)
         {
-            while (Program.newsLinks.Count > 0)
+            this.manager = manager;
+        }
+        public void GetTitles(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
             {
                 if (Program.newsLinks.TryDequeue(out string link))
                 {
@@ -46,12 +52,16 @@ namespace NewsListener
                             continue;
                         }
                         Program.newsTitlePlusLink.Add(link, webPage);
+                        manager.UpdateGui(webPage);
                     }
                     catch (Exception)
                     {
 
                         continue;
                     }
+                } else
+                {
+                    Thread.Sleep(1000);
                 }
             }
         }

@@ -16,6 +16,7 @@ namespace Exam2020_AA
 {
     public partial class CrawlManager : Form
     {
+        private CancellationTokenSource ts;
         public CrawlManager()
         {
             InitializeComponent();
@@ -26,6 +27,7 @@ namespace Exam2020_AA
         {
             Program.newsLinks = new Queue<string>();
             Program.newsTitlePlusLink = new Dictionary<string, string>();
+            ts = new CancellationTokenSource();
 
             var column = listView1.Columns.Add("NEWS");
             column.Width = 400;
@@ -38,24 +40,20 @@ namespace Exam2020_AA
             task.Start();
             task.Wait();
 
-            Task task1 = new Task(() =>
+            Task task1 = Task.Run(() =>
             {
-                TitleCrawler titleCrawler = new TitleCrawler();
-                titleCrawler.GetTitles();
+                TitleCrawler titleCrawler = new TitleCrawler(this);
+                titleCrawler.GetTitles(ts.Token);
             });
-            task1.Start();
-            task1.Wait();
-            UpdateGui();
-            
+
         }
-        public void UpdateGui()
+        public void UpdateGui(string title)
         {
-            foreach (var item in Program.newsTitlePlusLink)
-            {
-                MethodInvoker addRangeToList = delegate
-                { listView1.Items.Add(item.Value); };
-                listView1.BeginInvoke(addRangeToList);
-            }
+            
+                MethodInvoker addToList = delegate
+                { listView1.Items.Add(title); };
+                listView1.BeginInvoke(addToList);
+            
         }
     }
 }
