@@ -21,31 +21,53 @@ namespace Exam2020_AA
         {
             InitializeComponent();
             listView1.View = View.Details;
+            checkedListBox1.Items.Add("Extra Bladet");
+            checkedListBox1.Items.Add("DR dk");
+            checkedListBox1.Items.Add("TV2");
         }
 
         private void Start(object sender, EventArgs e)
         {
+            if (button1.Text == "Stop")
+            {
+                ts.Cancel();
+                button1.Text = "Start";
+                return;
+            }
+            listView1.Clear();
+
             Program.newsLinks = new Queue<string>();
             Program.newsTitlePlusLink = new Dictionary<string, string>();
             ts = new CancellationTokenSource();
 
             var column = listView1.Columns.Add("NEWS");
             column.Width = 400;
-            Task task = new Task(() =>
-            {
-                ExtraBladetListener crawler = new ExtraBladetListener();
-                crawler.crawl();
-            });
 
-            task.Start();
-            task.Wait();
+            if (checkedListBox1.CheckedItems.Contains("Extra Bladet"))
+            {
+                Task task = Task.Run(() =>
+                {
+                    ExtraBladetListener crawler = new ExtraBladetListener();
+                    crawler.crawl();
+                });
+            }
+            if (checkedListBox1.CheckedItems.Contains("DR dk"))
+            {
+                Task task = Task.Run(() =>
+                {
+                    DrListener crawler = new DrListener();
+                    crawler.crawl();
+                });
+            }
+            
+
 
             Task task1 = Task.Run(() =>
             {
                 TitleCrawler titleCrawler = new TitleCrawler(this);
                 titleCrawler.GetTitles(ts.Token);
             });
-
+            button1.Text = "Stop";
         }
         public void UpdateGui(string title)
         {
