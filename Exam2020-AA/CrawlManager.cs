@@ -85,11 +85,6 @@ namespace Exam2020_AA
             MethodInvoker lab = delegate
             { label3.Text = "Result amount: " + Program.newsTitlePlusLink.Count; };
             label3.BeginInvoke(lab);
-
-
-
-
-
         }
     }
 }

@@ -44,10 +44,7 @@ namespace NewsListener
                                 webPage = webPage.Split("</title>")[0];
                                 webPage = webPage.Split(">")[1];
                                 //Console.WriteLine("webpage title = " + webPage);
-                                if (webPage.Contains("|"))
-                                {
-                                    webPage = webPage.Split("|")[0];
-                                }
+                                
                                 if (webPage.Contains("Ekstra Bladet"))
                                 {
                                     webPage = webPage[0..^15];
@@ -62,9 +59,10 @@ namespace NewsListener
                         }
                         if (link.Contains("dr.dk/nyheder"))
                         {
-                            //body = webPage.Split("fnBodytextTracking")[1];
-                            //if (!body.Equals("") && body.Contains(searchWord))
-                            //{
+                            body = webPage.Split("articleBody")[1];
+                            body = body.Split("dre-text-selection-toolbar")[0];
+                            if (!body.Equals("") && body.Contains(searchWord))
+                            {
                                 webPage = webPage.Split("<title")[1];
                                 webPage = webPage.Split("</title>")[0];
                                 webPage = webPage.Split(">")[1];
@@ -73,17 +71,13 @@ namespace NewsListener
                                 {
                                     webPage = webPage.Split("|")[0];
                                 }
-                                if (webPage.Contains("Ekstra Bladet"))
-                                {
-                                    webPage = webPage[0..^15];
-                                }
                                 if (Program.newsTitlePlusLink.ContainsKey(link))
                                 {
                                     continue;
                                 }
                                 Program.newsTitlePlusLink.Add(link, webPage);
                                 manager.UpdateGui(webPage);
-                            //}
+                            }
                         }
 
                     }
