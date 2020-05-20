@@ -79,6 +79,28 @@ namespace NewsListener
                                 manager.UpdateGui(webPage);
                             }
                         }
+                        if (link.Contains("nyheder.tv2.dk"))
+                        {
+                            body = webPage.Split("article-body")[1];
+                            body = body.Split("tc_page__footer")[0];
+                            if (!body.Equals("") && body.Contains(searchWord))
+                            {
+                                webPage = webPage.Split("<title")[1];
+                                webPage = webPage.Split("</title>")[0];
+                                webPage = webPage.Split(">")[1];
+                                //Console.WriteLine("webpage title = " + webPage);
+                                /*if (webPage.Contains("|"))
+                                {
+                                    webPage = webPage.Split("|")[0];
+                                }*/
+                                if (Program.newsTitlePlusLink.ContainsKey(link))
+                                {
+                                    continue;
+                                }
+                                Program.newsTitlePlusLink.Add(link, webPage);
+                                manager.UpdateGui(webPage);
+                            }
+                        }
 
                     }
                     catch (Exception)

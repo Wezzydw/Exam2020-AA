@@ -59,7 +59,15 @@ namespace Exam2020_AA
                     crawler.crawl();
                 });
             }
-            
+            if (checkedListBox1.CheckedItems.Contains("TV2"))
+            {
+                Task task = Task.Run(() =>
+                {
+                    Tv2Listener crawler = new Tv2Listener();
+                    crawler.crawl();
+                });
+            }
+
 
 
             Task task1 = Task.Run(() =>
