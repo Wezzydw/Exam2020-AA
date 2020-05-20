@@ -14,7 +14,7 @@ namespace NewsListener
         {
             this.manager = manager;
         }
-        public void GetTitles(CancellationToken token)
+        public void GetTitles(CancellationToken token, string searchWord)
         {
             while (!token.IsCancellationRequested)
             {
@@ -34,25 +34,58 @@ namespace NewsListener
                             Console.WriteLine("link = " + link);
                             continue;
                         }*/
+                        string body = "";
+                        if (link.Contains("ekstrabladet"))
+                        {
+                            body = webPage.Split("fnBodytextTracking")[1];
+                            if (!body.Equals("") && body.Contains(searchWord))
+                            {
+                                webPage = webPage.Split("<title")[1];
+                                webPage = webPage.Split("</title>")[0];
+                                webPage = webPage.Split(">")[1];
+                                //Console.WriteLine("webpage title = " + webPage);
+                                if (webPage.Contains("|"))
+                                {
+                                    webPage = webPage.Split("|")[0];
+                                }
+                                if (webPage.Contains("Ekstra Bladet"))
+                                {
+                                    webPage = webPage[0..^15];
+                                }
+                                if (Program.newsTitlePlusLink.ContainsKey(link))
+                                {
+                                    continue;
+                                }
+                                Program.newsTitlePlusLink.Add(link, webPage);
+                                manager.UpdateGui(webPage);
+                            }
+                        }
+                        if (link.Contains("dr.dk/nyheder"))
+                        {
+                            //body = webPage.Split("fnBodytextTracking")[1];
+                            //if (!body.Equals("") && body.Contains(searchWord))
+                            //{
+                                webPage = webPage.Split("<title")[1];
+                                webPage = webPage.Split("</title>")[0];
+                                webPage = webPage.Split(">")[1];
+                                //Console.WriteLine("webpage title = " + webPage);
+                                if (webPage.Contains("|"))
+                                {
+                                    webPage = webPage.Split("|")[0];
+                                }
+                                if (webPage.Contains("Ekstra Bladet"))
+                                {
+                                    webPage = webPage[0..^15];
+                                }
+                                if (Program.newsTitlePlusLink.ContainsKey(link))
+                                {
+                                    continue;
+                                }
+                                Program.newsTitlePlusLink.Add(link, webPage);
+                                manager.UpdateGui(webPage);
+                            //}
+                        }
 
-                        webPage = webPage.Split("<title")[1];
-                        webPage = webPage.Split("</title>")[0];
-                        webPage = webPage.Split(">")[1];
-                        //Console.WriteLine("webpage title = " + webPage);
-                        if (webPage.Contains("|"))
-                        {
-                            webPage = webPage.Split("|")[0];
-                        }
-                        if (webPage.Contains("Ekstra Bladet"))
-                        {
-                            webPage = webPage[0..^15];
-                        }
-                        if (Program.newsTitlePlusLink.ContainsKey(link))
-                        {
-                            continue;
-                        }
-                        Program.newsTitlePlusLink.Add(link, webPage);
-                        manager.UpdateGui(webPage);
                     }
                     catch (Exception)
                     {

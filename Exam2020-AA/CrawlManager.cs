@@ -64,18 +64,32 @@ namespace Exam2020_AA
 
             Task task1 = Task.Run(() =>
             {
+                string searchWord;
+                if (textBox1 != null)
+                {
+                    searchWord = textBox1.Text;
+                } else
+                {
+                    searchWord = "";
+                }
                 TitleCrawler titleCrawler = new TitleCrawler(this);
-                titleCrawler.GetTitles(ts.Token);
+                titleCrawler.GetTitles(ts.Token, searchWord);
             });
             button1.Text = "Stop";
         }
         public void UpdateGui(string title)
         {
-            
-                MethodInvoker addToList = delegate
-                { listView1.Items.Add(title); };
-                listView1.BeginInvoke(addToList);
-            
+            MethodInvoker addToList = delegate
+            { listView1.Items.Add(title); };
+            listView1.BeginInvoke(addToList);
+            MethodInvoker lab = delegate
+            { label3.Text = "Result amount: " + Program.newsTitlePlusLink.Count; };
+            label3.BeginInvoke(lab);
+
+
+
+
+
         }
     }
 }
