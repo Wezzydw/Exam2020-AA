@@ -101,6 +101,28 @@ namespace NewsListener
                                 manager.UpdateGui(webPage);
                             }
                         }
+                        if (link.Contains("bt.dk"))
+                        {
+                            body = webPage.Split("article-content")[1];
+                            body = body.Split("col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12")[0];
+                            if (!body.Equals("") && body.Contains(searchWord))
+                            {
+                                webPage = webPage.Split("<title")[1];
+                                webPage = webPage.Split("</title>")[0];
+                                webPage = webPage.Split(">")[1];
+                                //Console.WriteLine("webpage title = " + webPage);
+                                if (webPage.Contains("|"))
+                                {
+                                    webPage = webPage.Split("|")[0];
+                                }
+                                if (Program.newsTitlePlusLink.ContainsKey(link))
+                                {
+                                    continue;
+                                }
+                                Program.newsTitlePlusLink.Add(link, webPage);
+                                manager.UpdateGui(webPage);
+                            }
+                        }
 
                     }
                     catch (Exception)
