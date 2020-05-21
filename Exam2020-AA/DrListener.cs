@@ -48,7 +48,6 @@ namespace NewsListener
                         Program.newsLinks.Enqueue(newUrl);
                         continue;
                     }
-                    
                 }
                 if (newUrl.Contains("nyheder") && newUrl.Length > 56)
                 {

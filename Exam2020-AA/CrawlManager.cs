@@ -25,6 +25,7 @@ namespace Exam2020_AA
             checkedListBox1.Items.Add("DR dk");
             checkedListBox1.Items.Add("TV2");
             checkedListBox1.Items.Add("BT");
+            checkedListBox1.Items.Add("Dagens");
         }
 
         private void Start(object sender, EventArgs e)
@@ -76,7 +77,14 @@ namespace Exam2020_AA
                     crawler.crawl();
                 });
             }
-
+            if (checkedListBox1.CheckedItems.Contains("Dagens"))
+            {
+                Task task = Task.Run(() =>
+                {
+                    DagensListener crawler = new DagensListener();
+                    crawler.crawl();
+                });
+            }
 
             Task task1 = Task.Run(() =>
             {

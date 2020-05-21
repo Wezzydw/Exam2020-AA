@@ -123,6 +123,25 @@ namespace NewsListener
                                 manager.UpdateGui(webPage);
                             }
                         }
+                        if (link.Contains("dagens.dk"))
+                        {
+                            body = webPage.Split("article-content")[1];
+                            body = body.Split("social-share")[0];
+                            if (!body.Equals("") && body.Contains(searchWord))
+                            {
+                                webPage = webPage.Split("<title")[1];
+                                webPage = webPage.Split("</title>")[0];
+                                webPage = webPage.Split(">")[1];
+                                //Console.WriteLine("webpage title = " + webPage);
+                                
+                                if (Program.newsTitlePlusLink.ContainsKey(link))
+                                {
+                                    continue;
+                                }
+                                Program.newsTitlePlusLink.Add(link, webPage);
+                                manager.UpdateGui(webPage);
+                            }
+                        }
 
                     }
                     catch (Exception)
