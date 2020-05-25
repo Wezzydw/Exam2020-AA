@@ -17,6 +17,7 @@ namespace Exam2020_AA
     public partial class CrawlManager : Form
     {
         private CancellationTokenSource ts;
+        private Object theLinkLock = new object();
         public CrawlManager()
         {
             InitializeComponent();
@@ -24,10 +25,13 @@ namespace Exam2020_AA
             checkedListBox1.Items.Add("Extra Bladet");
             checkedListBox1.Items.Add("DR dk");
             checkedListBox1.Items.Add("TV2");
+            checkedListBox1.Items.Add("BT");
+            checkedListBox1.Items.Add("Dagens");
         }
 
         private void Start(object sender, EventArgs e)
         {
+            theLinkLock = new object();
             if (button1.Text == "Stop")
             {
                 ts.Cancel();
@@ -47,7 +51,7 @@ namespace Exam2020_AA
             {
                 Task task = Task.Run(() =>
                 {
-                    ExtraBladetListener crawler = new ExtraBladetListener();
+                    ExtraBladetListener crawler = new ExtraBladetListener(this);
                     crawler.crawl();
                 });
             }
@@ -55,26 +59,52 @@ namespace Exam2020_AA
             {
                 Task task = Task.Run(() =>
                 {
-                    DrListener crawler = new DrListener();
+                    DrListener crawler = new DrListener(this);
                     crawler.crawl();
                 });
             }
-            
-
-
-            Task task1 = Task.Run(() =>
+            if (checkedListBox1.CheckedItems.Contains("TV2"))
             {
-                string searchWord;
-                if (textBox1 != null)
+                Task task = Task.Run(() =>
                 {
-                    searchWord = textBox1.Text;
-                } else
+                    Tv2Listener crawler = new Tv2Listener(this);
+                    crawler.crawl();
+                });
+            }
+            if (checkedListBox1.CheckedItems.Contains("BT"))
+            {
+                Task task = Task.Run(() =>
                 {
-                    searchWord = "";
-                }
-                TitleCrawler titleCrawler = new TitleCrawler(this);
-                titleCrawler.GetTitles(ts.Token, searchWord);
-            });
+                    BtListener crawler = new BtListener(this);
+                    crawler.crawl();
+                });
+            }
+            if (checkedListBox1.CheckedItems.Contains("Dagens"))
+            {
+                Task task = Task.Run(() =>
+                {
+                    DagensListener crawler = new DagensListener(this);
+                    crawler.crawl();
+                });
+            }
+            for (int i = 10 - 1; i >= 0; i--)
+            {
+                Task task1 = Task.Run(() =>
+                {
+                    string searchWord;
+                    if (textBox1 != null)
+                    {
+                        searchWord = textBox1.Text;
+                    }
+                    else
+                    {
+                        searchWord = "";
+                    }
+                    TitleCrawler titleCrawler = new TitleCrawler(this);
+                    titleCrawler.GetTitles(ts.Token, searchWord);
+                });
+            }
+            
             button1.Text = "Stop";
         }
         public void UpdateGui(string title)
@@ -85,11 +115,31 @@ namespace Exam2020_AA
             MethodInvoker lab = delegate
             { label3.Text = "Result amount: " + Program.newsTitlePlusLink.Count; };
             label3.BeginInvoke(lab);
-
-
-
-
-
+        }
+        public string GetSite()
+        {
+            lock (theLinkLock)
+            {
+                Program.newsLinks.TryDequeue(out string link);
+                return link;
+            }
+        }
+        public void addLinksToQueue(List<string> links)
+        {
+            lock (theLinkLock)
+            {
+                foreach (string link in links)
+                {
+                    Program.newsLinks.Enqueue(link);
+                }
+            }
+        }
+        public void addLinkToResult(string url, string title)
+        {
+            lock (theLinkLock)
+            {
+                Program.newsTitlePlusLink.Add(url, title);
+            }
         }
     }
 }

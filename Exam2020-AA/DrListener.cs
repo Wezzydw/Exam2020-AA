@@ -9,6 +9,11 @@ namespace NewsListener
 {
     public class DrListener
     {
+        private CrawlManager manager;
+        public DrListener(CrawlManager manager)
+        {
+            this.manager = manager;
+        }
         private static readonly Regex hrefPattern = new Regex("href\\s*=\\s*(?:\"(?<1>[^\"]*)\"|(?<1>\\S+))", RegexOptions.IgnoreCase);
         public void crawl()
         {
@@ -22,6 +27,7 @@ namespace NewsListener
             // var urls = urlTagPattern.Matches(webPage);
             //Console.WriteLine(webPage);
             var urls = webPage.Split("<a ");
+            List<string> links = new List<string>();
             foreach (string url in urls)
             {
 
@@ -31,31 +37,31 @@ namespace NewsListener
                 {
                     continue;
                 }
-                if (Program.newsLinks.Contains(newUrl)) // enten dette eller lave en liste over allerede besøgte links
+                if (Program.newsLinks.Contains(newUrl) || links.Contains(newUrl)) // enten dette eller lave en liste over allerede besøgte links
                 {
                     continue;
                 }
                 if (newUrl.StartsWith("/"))
                 {
                     newUrl = "https://www.dr.dk" + newUrl;
-                    if (Program.newsLinks.Contains(newUrl))
+                    if (Program.newsLinks.Contains(newUrl) || links.Contains(newUrl))
                     {
                         continue;
                     }
                     if (newUrl.Contains("nyheder") && newUrl.Length > 56)
                     {
                         Console.WriteLine(newUrl);
-                        Program.newsLinks.Enqueue(newUrl);
+                        links.Add(newUrl);
                         continue;
                     }
-                    
                 }
                 if (newUrl.Contains("nyheder") && newUrl.Length > 56)
                 {
                     Console.WriteLine(newUrl);
-                    Program.newsLinks.Enqueue(newUrl);
+                    links.Add(newUrl);
                 }
             }
+            manager.addLinksToQueue(links);
         }
     }
 }
