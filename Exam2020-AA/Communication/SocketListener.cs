@@ -100,7 +100,7 @@ namespace Exam2020_AA.Communication
                         newsjsonstring = content.Substring(9, content.Length - (5+9));
                         newslist = JsonSerializer.Deserialize<List<News>>(newsjsonstring);
                         //Instert into database;
-                        CommunicationRepository.CreateNews(newslist);
+                        CommunicationRepository.CreateNewsList(newslist);
                         Send(handler, "Data should have been created in database");
                     }
 

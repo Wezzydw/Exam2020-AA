@@ -20,6 +20,7 @@ namespace Exam2020_AA
         {
             using (NewsContext db = new NewsContext())
             {
+                db.Database.EnsureDeleted();
                 db.Database.EnsureCreated();
             }
                 Task taska = Task.Run(() => SocketListener.StartListening());

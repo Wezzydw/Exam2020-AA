@@ -7,11 +7,19 @@ namespace Exam2020_AA.Communication
 {
     public class CommunicationRepository
     {
-        public static void CreateNews(List<News> news)
+        public static void CreateNewsList(List<News> news)
         {
             using (NewsContext db = new NewsContext())
             {
                 db.AddRange(news);
+                db.SaveChanges();
+            }
+        }
+        public static void CreateNews(News news)
+        {
+            using (NewsContext db = new NewsContext())
+            {
+                db.Add(news);
                 db.SaveChanges();
             }
         }

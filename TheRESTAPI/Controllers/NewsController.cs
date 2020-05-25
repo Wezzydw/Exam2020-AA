@@ -21,17 +21,11 @@ namespace TheRESTAPI.Controllers
 
         public ActionResult<List<News>> Get()
         {
-            List<News> news = new List<News>();
-            News a = new News() { NewsText = "News a" };
-            News b = new News() { NewsText = "News b" };
-            News c = new News() { NewsText = "News c" };
-            news.Add(a);
-            news.Add(b);
-            news.Add(c);
+      
             //_newsService.SaveNews(news);
             Console.WriteLine("Reached get");
-            return news;
-            //return _newsService.GetNews();
+            //return news;
+            return _newsService.GetNews();
         }
     }
 }

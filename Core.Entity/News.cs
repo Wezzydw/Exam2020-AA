@@ -6,7 +6,8 @@ namespace Core.Entity
 {
     public class News
     {
-        public string NewsText { get; set; }
+        public string Title { get; set; }
+        public string Url { get; set; }
         public int id { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using NewsListener;
+﻿using Exam2020_AA.Communication;
+using NewsListener;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -139,6 +140,8 @@ namespace Exam2020_AA
             lock (theLinkLock)
             {
                 Program.newsTitlePlusLink.Add(url, title);
+                News news = new News() { Title = title, Url = url};
+                CommunicationRepository.CreateNews(news);
             }
         }
     }
