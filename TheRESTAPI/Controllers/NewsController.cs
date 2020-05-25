@@ -29,8 +29,9 @@ namespace TheRESTAPI.Controllers
             news.Add(b);
             news.Add(c);
             //_newsService.SaveNews(news);
-            //return news;
-            return _newsService.GetNews();
+            Console.WriteLine("Reached get");
+            return news;
+            //return _newsService.GetNews();
         }
     }
 }
