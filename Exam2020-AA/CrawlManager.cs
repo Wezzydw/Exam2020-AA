@@ -17,6 +17,7 @@ namespace Exam2020_AA
     public partial class CrawlManager : Form
     {
         private CancellationTokenSource ts;
+        private Object theLinkLock = new object();
         public CrawlManager()
         {
             InitializeComponent();
@@ -30,6 +31,7 @@ namespace Exam2020_AA
 
         private void Start(object sender, EventArgs e)
         {
+            theLinkLock = new object();
             if (button1.Text == "Stop")
             {
                 ts.Cancel();
@@ -49,7 +51,7 @@ namespace Exam2020_AA
             {
                 Task task = Task.Run(() =>
                 {
-                    ExtraBladetListener crawler = new ExtraBladetListener();
+                    ExtraBladetListener crawler = new ExtraBladetListener(this);
                     crawler.crawl();
                 });
             }
@@ -85,20 +87,24 @@ namespace Exam2020_AA
                     crawler.crawl();
                 });
             }
-
-            Task task1 = Task.Run(() =>
-            {
-                string searchWord;
-                if (textBox1 != null)
+            //for (int i = 3 - 1; i >= 0; i--)
+            //{
+                Task task1 = Task.Run(() =>
                 {
-                    searchWord = textBox1.Text;
-                } else
-                {
-                    searchWord = "";
-                }
-                TitleCrawler titleCrawler = new TitleCrawler(this);
-                titleCrawler.GetTitles(ts.Token, searchWord);
-            });
+                    string searchWord;
+                    if (textBox1 != null)
+                    {
+                        searchWord = textBox1.Text;
+                    }
+                    else
+                    {
+                        searchWord = "";
+                    }
+                    TitleCrawler titleCrawler = new TitleCrawler(this);
+                    titleCrawler.GetTitles(ts.Token, searchWord);
+                });
+            //}
+            
             button1.Text = "Stop";
         }
         public void UpdateGui(string title)
@@ -109,6 +115,31 @@ namespace Exam2020_AA
             MethodInvoker lab = delegate
             { label3.Text = "Result amount: " + Program.newsTitlePlusLink.Count; };
             label3.BeginInvoke(lab);
+        }
+        public string GetSite()
+        {
+            lock (theLinkLock)
+            {
+                Program.newsLinks.TryDequeue(out string link);
+                return link;
+            }
+        }
+        public void addLinksToQueue(List<string> links)
+        {
+            lock (theLinkLock)
+            {
+                foreach (string link in links)
+                {
+                    Program.newsLinks.Enqueue(link);
+                }
+            }
+        }
+        public void addLinkToResult(string url, string title)
+        {
+            lock (theLinkLock)
+            {
+                Program.newsTitlePlusLink.Add(url, title);
+            }
         }
     }
 }

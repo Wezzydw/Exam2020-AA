@@ -53,7 +53,7 @@ namespace NewsListener
                                 {
                                     continue;
                                 }
-                                Program.newsTitlePlusLink.Add(link, webPage);
+                                manager.addLinkToResult(link, webPage);
                                 manager.UpdateGui(webPage);
                             }
                         }
@@ -75,7 +75,7 @@ namespace NewsListener
                                 {
                                     continue;
                                 }
-                                Program.newsTitlePlusLink.Add(link, webPage);
+                                manager.addLinkToResult(link, webPage);
                                 manager.UpdateGui(webPage);
                             }
                         }
@@ -97,7 +97,7 @@ namespace NewsListener
                                 {
                                     continue;
                                 }
-                                Program.newsTitlePlusLink.Add(link, webPage);
+                                manager.addLinkToResult(link, webPage);
                                 manager.UpdateGui(webPage);
                             }
                         }
@@ -119,7 +119,7 @@ namespace NewsListener
                                 {
                                     continue;
                                 }
-                                Program.newsTitlePlusLink.Add(link, webPage);
+                                manager.addLinkToResult(link, webPage);
                                 manager.UpdateGui(webPage);
                             }
                         }
@@ -138,7 +138,7 @@ namespace NewsListener
                                 {
                                     continue;
                                 }
-                                Program.newsTitlePlusLink.Add(link, webPage);
+                                manager.addLinkToResult(link, webPage);
                                 manager.UpdateGui(webPage);
                             }
                         }

@@ -9,6 +9,11 @@ namespace NewsListener
 {
     public class ExtraBladetListener
     {
+        private CrawlManager manager;
+        public ExtraBladetListener(CrawlManager manager)
+        {
+            this.manager = manager;
+        }
         private static readonly Regex hrefPattern = new Regex("href\\s*=\\s*(?:\"(?<1>[^\"]*)\"|(?<1>\\S+))", RegexOptions.IgnoreCase);
         public void crawl()
         {
@@ -22,6 +27,7 @@ namespace NewsListener
             // var urls = urlTagPattern.Matches(webPage);
             //Console.WriteLine(webPage);
             var urls = webPage.Split("<a ");
+            List<string> links = new List<string>();
             foreach (string url in urls)
             {
                 //Console.WriteLine(url);
@@ -42,12 +48,13 @@ namespace NewsListener
                         continue;
                     }
                     Console.WriteLine(newUrl);
-                    Program.newsLinks.Enqueue(newUrl);
+                    links.Add(newUrl);
                     continue;
                 }
                 Console.WriteLine(newUrl);
-                Program.newsLinks.Enqueue(newUrl);
+                links.Add(newUrl);
             }
+            manager.addLinksToQueue(links);
         }
     }
 }
