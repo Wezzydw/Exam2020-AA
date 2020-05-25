@@ -36,14 +36,14 @@ namespace NewsListener
                 {
                     continue;
                 }
-                if (Program.newsLinks.Contains(newUrl)) // enten dette eller lave en liste over allerede besøgte links
+                if (Program.newsLinks.Contains(newUrl) || links.Contains(newUrl)) // enten dette eller lave en liste over allerede besøgte links
                 {
                     continue;
                 }
                 if (newUrl.StartsWith("/"))
                 {
                     newUrl = "https://ekstrabladet.dk" + newUrl;
-                    if (Program.newsLinks.Contains(newUrl))
+                    if (Program.newsLinks.Contains(newUrl) || links.Contains(newUrl))
                     {
                         continue;
                     }

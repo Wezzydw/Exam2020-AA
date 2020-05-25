@@ -59,7 +59,7 @@ namespace Exam2020_AA
             {
                 Task task = Task.Run(() =>
                 {
-                    DrListener crawler = new DrListener();
+                    DrListener crawler = new DrListener(this);
                     crawler.crawl();
                 });
             }
@@ -67,7 +67,7 @@ namespace Exam2020_AA
             {
                 Task task = Task.Run(() =>
                 {
-                    Tv2Listener crawler = new Tv2Listener();
+                    Tv2Listener crawler = new Tv2Listener(this);
                     crawler.crawl();
                 });
             }
@@ -75,7 +75,7 @@ namespace Exam2020_AA
             {
                 Task task = Task.Run(() =>
                 {
-                    BtListener crawler = new BtListener();
+                    BtListener crawler = new BtListener(this);
                     crawler.crawl();
                 });
             }
@@ -83,12 +83,12 @@ namespace Exam2020_AA
             {
                 Task task = Task.Run(() =>
                 {
-                    DagensListener crawler = new DagensListener();
+                    DagensListener crawler = new DagensListener(this);
                     crawler.crawl();
                 });
             }
-            //for (int i = 3 - 1; i >= 0; i--)
-            //{
+            for (int i = 10 - 1; i >= 0; i--)
+            {
                 Task task1 = Task.Run(() =>
                 {
                     string searchWord;
@@ -103,7 +103,7 @@ namespace Exam2020_AA
                     TitleCrawler titleCrawler = new TitleCrawler(this);
                     titleCrawler.GetTitles(ts.Token, searchWord);
                 });
-            //}
+            }
             
             button1.Text = "Stop";
         }
