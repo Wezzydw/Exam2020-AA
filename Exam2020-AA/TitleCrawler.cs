@@ -18,10 +18,11 @@ namespace NewsListener
         {
             while (!token.IsCancellationRequested)
             {
-                if (Program.newsLinks.TryDequeue(out string link))
+                string link = manager.GetSite();
+                if (link != null)
                 {
-                    string urlStr = link;
-                    UriBuilder ub = new UriBuilder(urlStr);
+                    
+                    UriBuilder ub = new UriBuilder(link);
                     WebClient wc = new WebClient();
 
                     try
