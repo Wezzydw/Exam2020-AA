@@ -26,9 +26,12 @@ namespace Exam2020_AA.Communication
 
         public static List<News> GetAllNews()
         {
+            
             using (NewsContext db = new NewsContext())
             {
-                return db.News.ToList();
+                List<News> list = db.News.ToList();
+                System.Diagnostics.Debug.WriteLine("Get all news " + list.Count);
+                return list;
             }
         }
     }

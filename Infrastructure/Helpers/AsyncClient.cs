@@ -69,6 +69,11 @@ namespace Core.Helpers
                 Console.WriteLine("Response received : {0}", response);
                 //string newsjsonstring = "";
                 //newsjsonstring = response.Substring(0, response.Length - (5));
+                if(response.Equals("EMPTY"))
+                {
+                    Console.WriteLine("Returns null");
+                    return null;
+                }
                 newslist = JsonSerializer.Deserialize<List<News>>(response);
                 news = newslist;
                 // Release the socket.  
@@ -78,6 +83,7 @@ namespace Core.Helpers
             }
             catch (Exception e)
             {
+                Console.WriteLine("Exep");
                 Console.WriteLine(e.ToString());
             }
             return news;
@@ -101,6 +107,7 @@ namespace Core.Helpers
             }
             catch (Exception e)
             {
+                Console.WriteLine("Expet1");
                 Console.WriteLine(e.ToString());
             }
         }
@@ -119,6 +126,7 @@ namespace Core.Helpers
             }
             catch (Exception e)
             {
+                Console.WriteLine("Expet2");
                 Console.WriteLine(e.ToString());
             }
         }
@@ -157,6 +165,7 @@ namespace Core.Helpers
             }
             catch (Exception e)
             {
+                Console.WriteLine("Expet3");
                 Console.WriteLine(e.ToString());
             }
         }
@@ -187,6 +196,7 @@ namespace Core.Helpers
             }
             catch (Exception e)
             {
+                Console.WriteLine("Expet5");
                 Console.WriteLine(e.ToString());
             }
         }

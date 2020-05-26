@@ -92,7 +92,9 @@ namespace Exam2020_AA.Communication
                     if (content.Contains("[Get-All]"))
                     {
                         newsjsonstring = JsonSerializer.Serialize(CommunicationRepository.GetAllNews());
-
+                        if (newsjsonstring.Equals("[]")){
+                            newsjsonstring = "EMPTY";
+                        }
                         Send(handler, newsjsonstring);
                     }
                     else if(content.Contains("[Insert-]"))
