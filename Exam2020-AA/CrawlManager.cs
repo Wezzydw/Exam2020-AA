@@ -19,6 +19,12 @@ namespace Exam2020_AA
     {
         private CancellationTokenSource ts;
         private Object theLinkLock = new object();
+        private Boolean started = false;
+        private Boolean invokedByTimer = false;
+        private Boolean stoppedByUser = false;
+        private int sleepTimer = 1;
+        private int minuteInMilis = 60000;
+
         public CrawlManager()
         {
             InitializeComponent();
@@ -28,17 +34,76 @@ namespace Exam2020_AA
             checkedListBox1.Items.Add("TV2");
             checkedListBox1.Items.Add("BT");
             checkedListBox1.Items.Add("Dagens");
+            //TimerThread();
         }
 
+        private void TimerThread()
+        {
+
+            Task task = Task.Run(() =>
+            {
+                while (true)
+                {
+                    System.Diagnostics.Debug.Write("sleep timer is : " + sleepTimer * minuteInMilis);
+                    Thread.Sleep(sleepTimer* minuteInMilis);
+                    if(stoppedByUser == true)
+                    {
+                        break; 
+                    }
+                    invokedByTimer = true;
+                    button1.Invoke((MethodInvoker)delegate
+                    {
+                        System.Diagnostics.Debug.Write("Invoke");
+                        //invokedByTimer = true;
+                        button1.PerformClick();
+                    });
+                    //button1.PerformClick();
+                }
+            });
+        }
+
+        private void TextBox2_TextChanged(object sender, EventArgs e)
+        {
+            if(textBox2.Text.Length != 0)
+            {
+                sleepTimer = Int32.Parse(textBox2.Text);
+                if (sleepTimer == 0)
+                {
+                    sleepTimer = 1;
+                }
+            }
+            else
+            {
+                sleepTimer = 1;
+            }
+            
+        }
+
+        //start
         private void Start(object sender, EventArgs e)
         {
+            
+            if(!started)
+            {
+                TimerThread();
+                started = true;
+                stoppedByUser = false;
+            }
+            System.Diagnostics.Debug.Write("In start");
             CommunicationRepository.EmptyDatabase();
             theLinkLock = new object();
-            if (button1.Text == "Stop")
+            System.Diagnostics.Debug.Write(" \n invoked timer: " +invokedByTimer);
+            if (button1.Text == "Stop" && invokedByTimer == false)
             {
                 ts.Cancel();
                 button1.Text = "Start";
+                stoppedByUser = true;
+                started = false;
                 return;
+            }
+            if(invokedByTimer == true)
+            {
+                invokedByTimer = false;
             }
             listView1.Clear();
 
@@ -108,6 +173,7 @@ namespace Exam2020_AA
             }
             
             button1.Text = "Stop";
+
         }
         public void UpdateGui(string title)
         {
