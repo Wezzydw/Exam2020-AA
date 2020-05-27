@@ -32,6 +32,7 @@ namespace Exam2020_AA
 
         private void Start(object sender, EventArgs e)
         {
+            CommunicationRepository.EmptyDatabase();
             theLinkLock = new object();
             if (button1.Text == "Stop")
             {

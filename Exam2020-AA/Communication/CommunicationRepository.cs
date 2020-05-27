@@ -34,5 +34,15 @@ namespace Exam2020_AA.Communication
                 return list;
             }
         }
+
+        public static void EmptyDatabase()
+        {
+            using (NewsContext db = new NewsContext())
+            {
+                List<News> list = db.News.ToList();
+                db.News.RemoveRange(list);
+                db.SaveChanges();
+            }
+        }
     }
 }
