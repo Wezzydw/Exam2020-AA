@@ -34,7 +34,6 @@ namespace Exam2020_AA
             checkedListBox1.Items.Add("TV2");
             checkedListBox1.Items.Add("BT");
             checkedListBox1.Items.Add("Dagens");
-            //TimerThread();
         }
 
         private void TimerThread()
@@ -44,7 +43,6 @@ namespace Exam2020_AA
             {
                 while (true)
                 {
-                    System.Diagnostics.Debug.Write("sleep timer is : " + sleepTimer * minuteInMilis);
                     Thread.Sleep(sleepTimer* minuteInMilis);
                     if(stoppedByUser == true)
                     {
@@ -53,11 +51,8 @@ namespace Exam2020_AA
                     invokedByTimer = true;
                     button1.Invoke((MethodInvoker)delegate
                     {
-                        System.Diagnostics.Debug.Write("Invoke");
-                        //invokedByTimer = true;
                         button1.PerformClick();
                     });
-                    //button1.PerformClick();
                 }
             });
         }
