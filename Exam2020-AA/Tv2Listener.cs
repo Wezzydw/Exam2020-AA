@@ -23,19 +23,17 @@ namespace Exam2020_AA
             string webPage = wc.DownloadString(ub.Uri.ToString());
             webPage = webPage.Split("o-deck g-con g-col g-row_l g-gutter g-colx")[1] + webPage.Split("o-deck g-con g-col g-row_l g-gutter g-colx")[2];
             webPage = webPage.Split("section_load_more_from_term-loadmore")[0];
-            // var urls = urlTagPattern.Matches(webPage);
-            //Console.WriteLine(webPage);
+            
             var urls = webPage.Split("<a ");
             List<string> links = new List<string>();
             foreach (string url in urls)
             {
-                //Console.WriteLine(url);
                 string newUrl = url.Split("\"")[1];
                 if (newUrl.Equals("") || newUrl.Contains("div class"))
                 {
                     continue;
                 }
-                if (Program.newsLinks.Contains(newUrl) || links.Contains(newUrl)) // enten dette eller lave en liste over allerede besøgte links
+                if (Program.newsLinks.Contains(newUrl) || links.Contains(newUrl))
                 {
                     continue;
                 }
@@ -46,11 +44,9 @@ namespace Exam2020_AA
                     {
                         continue;
                     }
-                    Console.WriteLine(newUrl);
                     links.Add(newUrl);
                     continue;
                 }
-                Console.WriteLine(newUrl);
                 links.Add(newUrl);
             }
             manager.addLinksToQueue(links);
