@@ -20,7 +20,7 @@ namespace TheRESTAPI
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>().UseUrls("http://192.168.0.70:1337");
                 });
     }
 }
