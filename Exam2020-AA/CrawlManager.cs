@@ -35,7 +35,6 @@ namespace Exam2020_AA
             checkedListBox1.Items.Add("BT");
             checkedListBox1.Items.Add("Dagens");
         }
-
         private void TimerThread()
         {
 
@@ -56,7 +55,6 @@ namespace Exam2020_AA
                 }
             });
         }
-
         private void TextBox2_TextChanged(object sender, EventArgs e)
         {
             if(textBox2.Text.Length != 0)
@@ -74,7 +72,13 @@ namespace Exam2020_AA
             
         }
 
-        //start
+        /// <summary>
+        /// The method starts when pressed on the button in the windowsform,
+        /// the method starts all the threads needed dependen on which 
+        /// boxes are checked off on the windowsform.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Start(object sender, EventArgs e)
         {
             
@@ -166,10 +170,13 @@ namespace Exam2020_AA
                     titleCrawler.GetTitles(ts.Token, searchWord);
                 });
             }
-            
             button1.Text = "Stop";
-
         }
+        /// <summary>
+        /// This method updates the listview in the windowsform 
+        /// by adding the title to the listview.
+        /// </summary>
+        /// <param name="title"></param>
         public void UpdateGui(string title)
         {
             MethodInvoker addToList = delegate
@@ -179,6 +186,10 @@ namespace Exam2020_AA
             { label3.Text = "Result amount: " + Program.newsTitlePlusLink.Count; };
             label3.BeginInvoke(lab);
         }
+        /// <summary>
+        /// The method takes a link and removes it from the queue and returns it.
+        /// </summary>
+        /// <returns></returns>
         public string GetSite()
         {
             lock (theLinkLock)
@@ -187,6 +198,10 @@ namespace Exam2020_AA
                 return link;
             }
         }
+        /// <summary>
+        /// The method adds the links to the queue.
+        /// </summary>
+        /// <param name="links"></param>
         public void addLinksToQueue(List<string> links)
         {
             lock (theLinkLock)
@@ -197,6 +212,12 @@ namespace Exam2020_AA
                 }
             }
         }
+        /// <summary>
+        /// The method takes the url and title and adds it to the dictionary
+        /// and then adds it to the database.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="title"></param>
         public void addLinkToResult(string url, string title)
         {
             lock (theLinkLock)

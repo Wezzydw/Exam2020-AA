@@ -14,6 +14,16 @@ namespace NewsListener
         {
             this.manager = manager;
         }
+        /// <summary>
+        /// The method takes a CancellationToken and string as paramters,
+        /// the CancellationToken is so you can stop the crawler
+        /// and the string is the search word you want news related to.
+        /// It takes urls from a queue and goes through the site to look for the title
+        /// and the search word, if the search word is on the page it
+        /// will tell the manager to add the result to a dictionary
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="searchWord"></param>
         public void GetTitles(CancellationToken token, string searchWord)
         {
             while (!token.IsCancellationRequested)
@@ -28,13 +38,6 @@ namespace NewsListener
                     try
                     {
                         string webPage = wc.DownloadString(ub.Uri.ToString());
-                        //Console.WriteLine(link);
-                        //Console.WriteLine(webPage);
-                        /* if (!webPage.Contains("<title>"))
-                        {
-                            Console.WriteLine("link = " + link);
-                            continue;
-                        }*/
                         string body = "";
                         if (link.Contains("ekstrabladet"))
                         {
@@ -43,9 +46,7 @@ namespace NewsListener
                             {
                                 webPage = webPage.Split("<title")[1];
                                 webPage = webPage.Split("</title>")[0];
-                                webPage = webPage.Split(">")[1];
-                                //Console.WriteLine("webpage title = " + webPage);
-                                
+                                webPage = webPage.Split(">")[1];                                
                                 if (webPage.Contains("Ekstra Bladet"))
                                 {
                                     webPage = webPage[0..^15];
@@ -67,7 +68,6 @@ namespace NewsListener
                                 webPage = webPage.Split("<title")[1];
                                 webPage = webPage.Split("</title>")[0];
                                 webPage = webPage.Split(">")[1];
-                                //Console.WriteLine("webpage title = " + webPage);
                                 if (webPage.Contains("|"))
                                 {
                                     webPage = webPage.Split("|")[0];
@@ -89,11 +89,6 @@ namespace NewsListener
                                 webPage = webPage.Split("<title")[1];
                                 webPage = webPage.Split("</title>")[0];
                                 webPage = webPage.Split(">")[1];
-                                //Console.WriteLine("webpage title = " + webPage);
-                                /*if (webPage.Contains("|"))
-                                {
-                                    webPage = webPage.Split("|")[0];
-                                }*/
                                 if (Program.newsTitlePlusLink.ContainsKey(link))
                                 {
                                     continue;
@@ -111,7 +106,6 @@ namespace NewsListener
                                 webPage = webPage.Split("<title")[1];
                                 webPage = webPage.Split("</title>")[0];
                                 webPage = webPage.Split(">")[1];
-                                //Console.WriteLine("webpage title = " + webPage);
                                 if (webPage.Contains("|"))
                                 {
                                     webPage = webPage.Split("|")[0];
@@ -133,7 +127,6 @@ namespace NewsListener
                                 webPage = webPage.Split("<title")[1];
                                 webPage = webPage.Split("</title>")[0];
                                 webPage = webPage.Split(">")[1];
-                                //Console.WriteLine("webpage title = " + webPage);
                                 
                                 if (Program.newsTitlePlusLink.ContainsKey(link))
                                 {
