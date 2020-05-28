@@ -35,7 +35,7 @@ namespace Exam2020_AA
                 {
                     continue;
                 }
-                if (Program.newsLinks.Contains(newUrl) || links.Contains(newUrl)) 
+                if (Program.newsLinks.Contains(newUrl) || links.Contains(newUrl))
                 {
                     continue;
                 }

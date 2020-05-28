@@ -29,8 +29,6 @@ namespace Exam2020_AA.Communication
                 while (true)
                 {
                     allDone.Reset();
-
-                    Console.WriteLine("Waiting for a connection");
                     listener.BeginAccept(new AsyncCallback(AcceptCallback), listener);
                     allDone.WaitOne();
                 }

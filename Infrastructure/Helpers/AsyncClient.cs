@@ -71,7 +71,6 @@ namespace Core.Helpers
                 //newsjsonstring = response.Substring(0, response.Length - (5));
                 if(response.Equals("EMPTY"))
                 {
-                    Console.WriteLine("Returns null");
                     return null;
                 }
                 newslist = JsonSerializer.Deserialize<List<News>>(response);

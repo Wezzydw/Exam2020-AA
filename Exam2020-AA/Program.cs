@@ -10,10 +10,7 @@ namespace Exam2020_AA
     static class Program
     {
         public static Queue<string> newsLinks;
-        public static Dictionary<string, string> newsTitlePlusLink; // reset once a day
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
+        public static Dictionary<string, string> newsTitlePlusLink;
         [STAThread]
 
         static void Main()
@@ -24,8 +21,6 @@ namespace Exam2020_AA
                 db.Database.EnsureCreated();
             }
                 Task taska = Task.Run(() => SocketListener.StartListening());
-            Console.WriteLine();
-            //SocketListener.StartListening();
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
