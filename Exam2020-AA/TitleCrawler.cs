@@ -28,13 +28,6 @@ namespace NewsListener
                     try
                     {
                         string webPage = wc.DownloadString(ub.Uri.ToString());
-                        //Console.WriteLine(link);
-                        //Console.WriteLine(webPage);
-                        /* if (!webPage.Contains("<title>"))
-                        {
-                            Console.WriteLine("link = " + link);
-                            continue;
-                        }*/
                         string body = "";
                         if (link.Contains("ekstrabladet"))
                         {
@@ -44,7 +37,6 @@ namespace NewsListener
                                 webPage = webPage.Split("<title")[1];
                                 webPage = webPage.Split("</title>")[0];
                                 webPage = webPage.Split(">")[1];
-                                //Console.WriteLine("webpage title = " + webPage);
                                 
                                 if (webPage.Contains("Ekstra Bladet"))
                                 {
@@ -67,7 +59,6 @@ namespace NewsListener
                                 webPage = webPage.Split("<title")[1];
                                 webPage = webPage.Split("</title>")[0];
                                 webPage = webPage.Split(">")[1];
-                                //Console.WriteLine("webpage title = " + webPage);
                                 if (webPage.Contains("|"))
                                 {
                                     webPage = webPage.Split("|")[0];
@@ -89,11 +80,6 @@ namespace NewsListener
                                 webPage = webPage.Split("<title")[1];
                                 webPage = webPage.Split("</title>")[0];
                                 webPage = webPage.Split(">")[1];
-                                //Console.WriteLine("webpage title = " + webPage);
-                                /*if (webPage.Contains("|"))
-                                {
-                                    webPage = webPage.Split("|")[0];
-                                }*/
                                 if (Program.newsTitlePlusLink.ContainsKey(link))
                                 {
                                     continue;
@@ -111,7 +97,6 @@ namespace NewsListener
                                 webPage = webPage.Split("<title")[1];
                                 webPage = webPage.Split("</title>")[0];
                                 webPage = webPage.Split(">")[1];
-                                //Console.WriteLine("webpage title = " + webPage);
                                 if (webPage.Contains("|"))
                                 {
                                     webPage = webPage.Split("|")[0];
@@ -133,7 +118,6 @@ namespace NewsListener
                                 webPage = webPage.Split("<title")[1];
                                 webPage = webPage.Split("</title>")[0];
                                 webPage = webPage.Split(">")[1];
-                                //Console.WriteLine("webpage title = " + webPage);
                                 
                                 if (Program.newsTitlePlusLink.ContainsKey(link))
                                 {

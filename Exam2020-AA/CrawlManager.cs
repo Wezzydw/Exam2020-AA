@@ -74,7 +74,6 @@ namespace Exam2020_AA
             
         }
 
-        //start
         private void Start(object sender, EventArgs e)
         {
             
@@ -84,10 +83,9 @@ namespace Exam2020_AA
                 started = true;
                 stoppedByUser = false;
             }
-            System.Diagnostics.Debug.Write("In start");
             CommunicationRepository.EmptyDatabase();
             theLinkLock = new object();
-            System.Diagnostics.Debug.Write(" \n invoked timer: " +invokedByTimer);
+            
             if (button1.Text == "Stop" && invokedByTimer == false)
             {
                 ts.Cancel();

@@ -22,16 +22,13 @@ namespace TheRESTAPI.Controllers
         public ActionResult<List<News>> Get()
         {
       
-            //_newsService.SaveNews(news);
-            Console.WriteLine("Reached get");
             List<News> news = _newsService.GetNews();
             if (news != null)
             {
                 return news;
             }
             else return NoContent();
-            //return news;
-            
+         
         }
     }
 }

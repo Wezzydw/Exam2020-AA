@@ -24,24 +24,20 @@ namespace Exam2020_AA
             string webPage = wc.DownloadString(ub.Uri.ToString());
             webPage = webPage.Split("block-system-main")[1];
             webPage = webPage.Split("footer clearfix")[0];
-            // var urls = urlTagPattern.Matches(webPage);
-            //Console.WriteLine(webPage);
             var urls = webPage.Split("<a ");
             List<string> links = new List<string>();
             foreach (string url in urls)
             {
-                //Console.WriteLine(url);
                 string newUrl = url.Split("\"")[1];
                 if (newUrl.Equals("") || newUrl.Length < 35)
                 {
                     continue;
                 }
-                if (Program.newsLinks.Contains(newUrl) || links.Contains(newUrl)) // enten dette eller lave en liste over allerede besøgte links
+                if (Program.newsLinks.Contains(newUrl) || links.Contains(newUrl))
                 {
                     continue;
                 }
                 
-                Console.WriteLine(newUrl);
                 links.Add(newUrl);
             }
             manager.addLinksToQueue(links);
